@@ -1,13 +1,15 @@
-import instaloader
-import glob
-import os
-import requests
 import base64
+import glob
 import json
+import os
+
+import instaloader
+import requests
 
 # URL Imgbb API
-key_imgbb="ef73bee1eca392d765d403bd825b49ab"
+key_imgbb = "ef73bee1eca392d765d403bd825b49ab"
 imgbb_url = "https://api.imgbb.com/1/upload"
+
 
 def instadownloader(profile_name):
     obj = instaloader.Instaloader()
@@ -19,8 +21,7 @@ def instadownloader(profile_name):
         payload = {
             "key": key_imgbb,
             "image": base64.b64encode(file.read()),
-            }
+        }
         r = requests.post(imgbb_url, payload)
-        img_url=(json.loads(r.text)["data"]["display_url"])
+        img_url = json.loads(r.text)["data"]["display_url"]
     return img_url
-

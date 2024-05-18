@@ -6,7 +6,10 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ("contacts", "0003_remove_contact_facebook_remove_contact_instagram_and_more"),
+        (
+            "contacts",
+            "0003_remove_contact_facebook_remove_contact_instagram_and_more",
+        ),
     ]
 
     operations = [

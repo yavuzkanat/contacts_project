@@ -1,25 +1,31 @@
 from rest_framework import serializers
-from .models import Contact, Phone, Email, Address, SocialMedia
+
+from .models import Address, Contact, Email, Phone, SocialMedia
+
 
 class PhoneSerializer(serializers.ModelSerializer):
     class Meta:
         model = Phone
         fields = '__all__'
 
+
 class EmailSerializer(serializers.ModelSerializer):
     class Meta:
         model = Email
         fields = '__all__'
+
 
 class AddressSerializer(serializers.ModelSerializer):
     class Meta:
         model = Address
         fields = '__all__'
 
+
 class SocialMediaSerializer(serializers.ModelSerializer):
     class Meta:
         model = SocialMedia
         fields = '__all__'
+
 
 class ContactSerializer(serializers.ModelSerializer):
     phones = PhoneSerializer(many=True, read_only=True)

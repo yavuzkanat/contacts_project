@@ -1,8 +1,9 @@
-from django.db import models
-
 import requests
 from bs4 import BeautifulSoup
+from django.db import models
+
 from .helpers import instadownloader
+
 
 class Contact(models.Model):
     first_name = models.CharField(max_length=50)
@@ -48,7 +49,7 @@ class SocialMedia(models.Model):
         img_url = ""
         if self.platform == 'facebook':
             img_url = "Not yet"
-            # raise NotImplementedError 
+            # raise NotImplementedError
         elif self.platform == 'instagram':
             img_url = instadownloader(profile_name=self.username)
         elif self.platform == 'twitter':
@@ -67,19 +68,25 @@ class Phone(models.Model):
         ('fax', 'Fax'),
         ('other', 'Other'),
     ]
-    contact = models.ForeignKey(Contact, related_name='phones', on_delete=models.CASCADE)
+    contact = models.ForeignKey(
+        Contact, related_name='phones', on_delete=models.CASCADE
+    )
     category = models.CharField(max_length=10, choices=PHONE_CATEGORIES)
     number = models.CharField(max_length=15)
 
     def __str__(self):
         return f"{self.get_category_display()}: {self.number}"
 
+
 class Email(models.Model):
-    contact = models.ForeignKey(Contact, related_name='emails', on_delete=models.CASCADE)
+    contact = models.ForeignKey(
+        Contact, related_name='emails', on_delete=models.CASCADE
+    )
     email = models.EmailField(unique=True)
 
     def __str__(self):
         return self.email
+
 
 class Address(models.Model):
     ADDRESS_CATEGORIES = [
@@ -87,7 +94,9 @@ class Address(models.Model):
         ('work', 'Work'),
         ('other', 'Other'),
     ]
-    contact = models.ForeignKey(Contact, related_name='addresses', on_delete=models.CASCADE)
+    contact = models.ForeignKey(
+        Contact, related_name='addresses', on_delete=models.CASCADE
+    )
     category = models.CharField(max_length=10, choices=ADDRESS_CATEGORIES)
     address = models.TextField()
 
